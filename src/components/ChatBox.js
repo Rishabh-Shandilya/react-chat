@@ -22,14 +22,13 @@ const ChatBox = () => {
     );
 
     const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      const fetchedMessages = [];
+      let fetchedMessages = [];
       QuerySnapshot.forEach((doc) => {
         fetchedMessages.push({ ...doc.data(), id: doc.id });
       });
-      const sortedMessages = fetchedMessages.sort(
-        (a, b) => a.createdAt - b.createdAt
-      );
+      const sortedMessages = fetchedMessages.sort((a, b) => a.createdAt - b.createdAt); // Sort the messages based on createdAt in ascending order
       setMessages(sortedMessages);
+    });
     });
     return () => unsubscribe;
   }, []);
